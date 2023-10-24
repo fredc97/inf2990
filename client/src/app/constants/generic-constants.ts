@@ -1,0 +1,17 @@
+export const FAR_CLIPPING_PLANE: number = 1000;
+export const NEAR_CLIPPING_PLANE: number = 1;
+export const FIELD_OF_VIEW: number = 70;
+export const INITIAL_CAMERA_POSITION_Y: number = 25;
+export const WHITE: number = 0xFFFFFF;
+export const AMBIENT_LIGHT_OPACITY: number = 0.5;
+export const PIXEL_MOUSE: number = 2;
+export const WALL_HEIGHT: number = 15;
+export const WALL_WIDTH: number = 25;
+export const STRAIGHT_ANGLE_DEG: number = 180;
+export const MIN_TO_SEC: number = 60;
+export const MS_TO_SECONDS: number = 1000;
+export const GRAVITY: number = -9.81;
+export const ANGLE_180: number = 180;
+export const RAD_TO_DEG: number = ANGLE_180 / Math.PI;
+export const DEG_TO_RAD: number = Math.PI / ANGLE_180;
+export const PI_OVER_2: number = Math.PI / 2;

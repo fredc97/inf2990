@@ -1,0 +1,12 @@
+<h1 *ngIf="race.score.getTime() == 0">You lost !</h1>
+<div *ngIf="race.score.getTime() > 0">
+  <h1>Congratulation, you have the first position. Your score: {{race.score | date:"mm:ss:SSS"}}</h1>
+  <div *ngIf="allowAdd">
+    <input *ngIf="allowAdd" type="text" [(ngModel)]="playerName" placeholder="Type your name here">
+    <button (click)="add()">Add my score</button>
+  </div>
+</div>
+<div class="alert {{alert.type}}" role="alert">
+  {{alert.content}}
+</div>
+<app-high-scores></app-high-scores>

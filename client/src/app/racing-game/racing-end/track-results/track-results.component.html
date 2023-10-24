@@ -1,0 +1,24 @@
+<h1>Race scores</h1>
+<table #table class="table table-striped table-bordered table-hover ">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Plyar Name</th>
+      <th scope="col">Round One</th>
+      <th scope="col">Round Two</th>
+      <th scope="col">Round Three</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let result of results.players">
+    <tr>
+      <td>{{ result.playerName }}</td>
+      <td>{{ result.time.roundOne | date:"mm:ss:SSS" }}</td>
+      <td>{{ result.time.roundTwo | date:"mm:ss:SSS" }}</td>
+      <td>{{ result.time.roundThree | date:"mm:ss:SSS" }}</td>
+      <td>{{ getTotalTime(result) | date:"mm:ss:SSS" }}</td>
+    </tr>
+  </tbody>
+</table>
+<div mat-dialog-actions>
+  <button mat-button class="btn" [mat-dialog-close]>Close</button>
+</div>

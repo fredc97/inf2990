@@ -1,0 +1,268 @@
+#player {
+    color: black;
+}
+
+input {
+    padding: 2px;
+    margin: 2px;
+    height: 45px;
+    width: 45px;
+    border-style: solid;
+    outline-style: solid;
+    border-radius: 1px;
+    background-color: rgb(151, 212, 212);
+    border-color: lightcyan;
+    text-align: center;
+    font-size: 200%;
+    font-weight: Bold;
+}
+
+::-webkit-input-placeholder {
+    color: gray;
+    font-size: 50%;
+    text-align: left;
+}
+
+:-moz-placeholder {
+    color: gray;
+    font-size: 50%;
+    text-align: left;
+}
+
+:-ms-input-placeholder {
+    color: gray;
+    font-size: 50%;
+    text-align: left;
+}
+
+::-moz-placeholder {
+    color: gray;
+    font-size: 50%;
+    text-align: left;
+}
+
+td {
+    padding: 0px;
+    margin: 5px;
+    border-style: solid;
+    border-radius: 1px;
+    border-color: black;
+    width: 40px;
+    text-align: center;
+}
+
+tr {
+    padding: 0px;
+    margin: 0px;
+}
+
+table {
+    border-style: solid;
+    border-radius: 1px;
+    border-color: black;
+    margin-right: 10px;
+    background-color: rgb(17, 87, 190);
+    float: center;
+}
+
+#scores {
+    background-color: rgb(181, 209, 245);
+    margin: 5px;
+    padding: 5px;
+}
+
+input:focus {
+    background-color: rgb(142, 255, 240);
+}
+
+input[type="text"]:disabled {
+    color: black;
+}
+
+#grid {
+    display: flex;
+    justify-content: center;
+    min-width: 50%;
+    padding: 50px 50px;
+}
+
+.definition {
+    padding-bottom: 20px;
+    min-width: 50%;
+    font-weight: Bold;
+    background-color: rgb(172, 171, 194);
+    margin: 3px;
+}
+
+#definitions {
+    padding-top: 10px;
+    background-color: rgb(206, 205, 219);
+}
+
+.index {
+    padding: 5px;
+    font-size: 15px;
+}
+
+#winnerPopUp {
+    padding: 10px;
+    border-color: rgb(195, 230, 203);
+    border-radius: 10px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    color: rgb(21, 87, 36);
+    background-color: rgb(212, 237, 218);
+    z-index: 100;
+    height: 350px;
+    margin-top: -200px;
+    width: 600px;
+    margin-left: -300px;
+}
+
+#winnerPopUp pre {
+    color: rgb(21, 87, 36);
+    font-Weight: Bold;
+    text-align: justify;
+    position: relative;
+    padding-left: 200px;
+}
+
+#generatingPopUp {
+    padding: 10px;
+    border-color: rgb(195, 230, 203);
+    border-radius: 10px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    color: black;
+    background-color: rgb(208, 231, 255);
+    ;
+    z-index: 100;
+    height: 350px;
+    margin-top: -200px;
+    width: 600px;
+    margin-left: -300px;
+}
+
+#generatingPopUp pre {
+    color: black;
+    font-Weight: Bold;
+    text-align: justify;
+    position: relative;
+    padding-left: 130px;
+}
+
+.winButton {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
+.winButton:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#waitingPopUp {
+    padding: 10px;
+    border-color: rgb(195, 230, 203);
+    border-radius: 10px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    color: white;
+    background-color: rgb(240, 172, 81);
+    z-index: 100;
+    height: 350px;
+    margin-top: -200px;
+    width: 600px;
+    margin-left: -300px;
+}
+
+#waitingPopUp pre {
+    color: white;
+    font-Weight: Bold;
+    text-align: justify;
+    position: relative;
+    padding-left: 230px;
+}
+
+#loserPopUp {
+    padding: 10px;
+    border-color: rgb(235, 204, 209);
+    border-radius: 10px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    color: rgb(169, 68, 66);
+    background-color: rgb(242, 222, 222);
+    z-index: 100;
+    height: 350px;
+    margin-top: -200px;
+    width: 600px;
+    margin-left: -300px;
+}
+
+#loserPopUp pre {
+    color: rgb(169, 68, 66);
+    font-Weight: Bold;
+    text-align: justify;
+    position: relative;
+    padding-left: 250px;
+}
+
+.loserButton {
+    background-color: white;
+    color: black;
+    border: 2px solid rgb(169, 68, 66);
+}
+
+.loserButton:hover {
+    background-color: rgb(169, 68, 66);
+    color: white;
+}
+
+#tiePopUp {
+    padding: 10px;
+    border-color: rgb(195, 230, 203);
+    border-radius: 10px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    color: white;
+    background-color: orange;
+    z-index: 100;
+    height: 350px;
+    margin-top: -200px;
+    width: 600px;
+    margin-left: -300px;
+}
+
+#tiePopUp pre {
+    color: white;
+    font-Weight: Bold;
+    text-align: justify;
+    position: relative;
+    padding-left: 230px;
+}
+
+.tieButton {
+    background-color: white;
+    color: orange;
+    border: 2px solid orange;
+}
+
+.tieButton:hover {
+    background-color: orange;
+    color: white;
+}
+
+button {
+    border-radius: 5px;
+}

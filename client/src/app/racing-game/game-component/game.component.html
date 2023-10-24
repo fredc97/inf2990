@@ -1,0 +1,10 @@
+<div #container>
+  <p id="count" [hidden]="this.gameController.timerCountDown.getCountDown() ==0">{{this.gameController.timerCountDown.getCountDown()}}</p>
+  <ul>
+    <li>Speed: {{this.renderService.getPlayers()[0].getCar().speed.length() * 3.6 | number :'2.2-2'}} km/h</li>
+    <li>Gear: {{this.renderService.getPlayers()[0].getCar().currentGear + 1}}</li>
+    <li>RPM: {{this.renderService.getPlayers()[0].getCar().rpm | number:'2.0-0'}}</li>
+  </ul>
+
+</div>
+<p>{{playing}}</p>

@@ -1,0 +1,12 @@
+export const HIGHSCORE_CRUD_URL: string = "http://localhost:3000/db/highScores/";
+export const TRACK_CRUD_URL: string = "http://localhost:3000/db/track/";
+export const ADD: string = "add/";
+export const UPDATE: string = "update/";
+export const GET_ALL: string = "getAll";
+export const GET_BY_TRACK_ID: string = "getByTrackId/";
+export const GET: string = "get/";
+export const DELETE: string = "delete/";
+export const DELETE_ALL_BY_TRACK_ID: string = "deleteAll/";
+export const FAIL: string = "FAIL";
+export const SUCCESS: string = "SUCCESS";
+export const ERROR: string = "ERROR";

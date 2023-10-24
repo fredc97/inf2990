@@ -1,0 +1,23 @@
+<table #table class="table table-striped table-bordered table-hover ">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let track of tracks">
+    <tr>
+      <td>{{ track.name }}</td>
+      <td>{{ track.description }}</td>
+      <td>
+        <button class="btn oi oi-pencil" (click)="edit(track._id)"></button>
+      </td>
+      <td>
+        <button class="btn oi oi-trash" (click)="delete(track._id)"></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<app-racing-component></app-racing-component>

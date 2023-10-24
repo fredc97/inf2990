@@ -1,0 +1,185 @@
+<div class="container" (click)="removeFocus($event)">
+  <div class="row">
+    <div class="col-12">
+      <div id="scores">
+        <h3 *ngIf="players !== undefined" [style.background-color]="'deeppink'" [style.color]="'black'">
+          Words found by {{_crosswordService._players[0]}} : {{_crosswordService.searchService.wordsCount[0]}}
+        </h3>
+        <h3 *ngIf="players !== undefined" [style.background-color]="'yellow'" [style.color]="'black'">
+          Words found by {{_crosswordService._players[1]}}: {{_crosswordService.searchService.wordsCount[1]}}
+        </h3>
+        <h3>Number of Words Found: {{_crosswordService.searchService.foundWords.length}}</h3>
+      </div>
+      <h3 *ngIf="players !== undefined">
+        You are
+        <span id="player" [style.background-color]="!_crosswordService.searchService.isRightUser(currentPlayer, players) ? 'yellow' : 'deeppink'">
+          {{_crosswordService._currentPlayer}}
+        </span>
+      </h3>
+      <hr/>
+    </div>
+  </div>
+  <div class="row">
+    <h3 id="currentDef">
+      <em>Current Word: {{showCurrentWord(_crosswordService.searchService.currentWord)}}</em>
+    </h3>
+    <div class="col-12">
+      <div id="grid">
+        <table>
+          <tr *ngFor="let row of _crosswordService.grid._letters">
+            <td *ngFor="let letter of row;">
+              <input class="case" placeholder="{{setIndexCase(letter)}}" [disabled]="_crosswordService.searchService.isLetterFound(letter) || _crosswordService.searchService.popUp._isCreatingGrid || _crosswordService.searchService.isGameOver()"
+                [style.background]="_crosswordService.searchService.isLetterBothFound(letter) ? ('repeating-linear-gradient(45deg, deeppink, deeppink 10px, yellow 10px, yellow 20px)') : none"
+                [style.background-color]="_crosswordService.searchService.isLetterFound(letter) ? 
+                                                (_crosswordService.searchService.isLetterFoundByPlayer(letter, players) ? 'deeppink' : 'yellow') : 'rgb(151, 212, 212)'"
+                [style.border-width]="_crosswordService.searchService.isPartOfCurrentWord(letter) ? '5px' : '2px'" [style.border-color]="(_crosswordService.searchService.isPartOfCurrentWord(letter)
+                                            && _crosswordService._players.length === 0)  ? 'black' :
+                                            (_crosswordService.searchService.isPartOfCurrentWord(letter)
+                                            && _crosswordService._players.length === 2) ? (_crosswordService.searchService.isRightUser(currentPlayer, players) ? 'deeppink' : 'yellow') : 'azure'"
+                [style.outline-width]="_crosswordService.searchService.isPartOfOtherWord(letter) ? '4px' : '0px'" [style.outline-color]="(_crosswordService.searchService.isPartOfOtherWord(letter)
+                                            && _crosswordService._players.length === 0)  ? 'black' :
+                                            (_crosswordService.searchService.isPartOfOtherWord(letter)
+                                            && _crosswordService._players.length === 2) ? (_crosswordService.searchService.isRightUser(currentPlayer, players) ? 'yellow' : 'deeppink') : 'azure'"
+                [style.outline-style]="_crosswordService.searchService.isLetterBothSelected(letter) ? 'dotted' : 'solid'" [style.border-style]="_crosswordService.searchService.isLetterBothSelected(letter) ? 'dotted' : 'solid'"
+                *ngIf="(letter._isBlank === false)" #element id="{{10*letter._row + letter._col}}" type="text" size="1" maxlength="1"
+                (input)="element.value=$event.target.value.toUpperCase()" (keypress)="_crosswordService.setLetterRestriction($event.charCode)"
+                (keyup)="_crosswordService.selectKeyUpOption($event, element.maxLength, element.value.length)" (click)="focusFirstLetter(letter)"
+                (keydown)="removeTab($event)" />
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <button (click)="changeMode()" class="btn btn-info btn-lg">
+      <span *ngIf="!_isCheatMode">Activate Cheat Mode</span>
+      <span *ngIf="_isCheatMode">Deactivate Cheat Mode</span>
+    </button>
+  </div>
+  <div class="row" id="definitions">
+    <div class="col-6">
+      <div class="definition">
+        <h4>Horizontal</h4>
+        <div *ngFor="let word of _crosswordService.grid._words">
+          <div *ngIf="(word._isHorizontal === true)">
+            <span class="index" id="{{word._index}}" (click)="isWordFound(word)||focusToIndex(word)" [style.font-weight]="_crosswordService.searchService.isWordSelected(word) ? 'bold' : 'normal'"
+              [style.color]="isWordFound(word) ? (_crosswordService.searchService.isWordFoundByPlayer(word, players) ? 'deeppink' : 'yellow') : 'black'"
+              [style.text-decoration]="isWordFound(word) ? 'line-through': 'none'">
+              {{word._index}} - {{changeWord(word)}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="definition">
+        <h4>Vertical</h4>
+        <div *ngFor="let word of _crosswordService.grid._words">
+          <div *ngIf="(word._isHorizontal == false)">
+            <span id="{{word._index}}" class="index" (click)="isWordFound(word)||focusToIndex(word)" [style.font-weight]="_crosswordService.searchService.isWordSelected(word) ? 'bold' : 'normal'"
+              [style.color]="isWordFound(word) ? (_crosswordService.searchService.isWordFoundByPlayer(word, players) ? 'deeppink' : 'yellow') : 'black'"
+              [style.text-decoration]="isWordFound(word) ? 'line-through': 'none'">
+              {{word._index}} - {{changeWord(word)}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="winnerPopUp" *ngIf="_crosswordService.searchService.isGameOver() && _crosswordService._players.length === 0">
+  <h1>Congratulation {{_crosswordService._currentPlayer}} !</h1>
+  <h2>You are the
+    <em>winner</em>
+  </h2>
+  <pre>
+    /(|
+    (  :
+   __\  \  _____
+ (____)  `|
+(____)|   |
+ (____).__|
+  (___)__.|_____
+  </pre>
+  <button class="winButton" (click)="_crosswordService.playAgainSolo()">Play again</button>
+  <button class="winButton" routerLink="/">Return Home</button>
+</div>
+
+<div *ngIf="_crosswordService.searchService.isGameOver() && _crosswordService._players.length === 2">
+  <div id="winnerPopUp" *ngIf="(_crosswordService.searchService.findWinner(_crosswordService._players, _crosswordService.searchService.wordsCount) === _crosswordService._currentPlayer) && 
+  !(_crosswordService.searchService.wordsCount[0] === _crosswordService.searchService.wordsCount[1])">
+    <h1>Congratulation {{_crosswordService._currentPlayer}} !</h1>
+    <h2>You are the
+      <em>winner</em>
+    </h2>
+    <pre>
+      /(|
+      (  :
+     __\  \  _____
+   (____)  `|     |
+  (____)|   |     |
+   (____).__|     |
+    (___)__.|_____|
+    </pre>
+    <button class="winButton" (click)="_crosswordService.rematch()">Rematch</button>
+    <button class="winButton" routerLink="/">Return Home</button>
+  </div>
+
+  <div id="loserPopUp" *ngIf="(_crosswordService.searchService.findWinner(_crosswordService._players, _crosswordService.searchService.wordsCount) !==
+   _crosswordService._currentPlayer) 
+   && !(_crosswordService.searchService.wordsCount[0] === _crosswordService.searchService.wordsCount[1])">
+    <h1>Game Over !</h1>
+    <h2>You are the
+      <em>loser {{_crosswordService._currentPlayer}}</em>
+    </h2>
+    <pre>
+   _____
+  /     \
+ | () () |
+  \  ^  /
+   |||||
+   |||||
+    </pre>
+    <button class="loserButton" (click)="_crosswordService.rematch()">Rematch</button>
+    <button class="loserButton" routerLink="/">Return Home</button>
+  </div>
+  <div id="tiePopUp" *ngIf="(_crosswordService.searchService.wordsCount[0] === _crosswordService.searchService.wordsCount[1])">
+    <h1>Game Over !</h1>
+    <h2>It's a
+      <em>tie</em>
+    </h2>
+    <pre>
+      ¯\_(ツ)_/¯        
+    </pre>
+    <button class="tieButton" (click)="_crosswordService.rematch()">Rematch</button>
+    <button class="tieButton" routerLink="/">Return Home</button>
+  </div>
+</div>
+
+<div *ngIf="_crosswordService.searchService.popUp._isCreatingGrid" id="generatingPopUp">
+  <h1>Currently generating a new grid</h1>
+  <br/>
+  <pre>
+z   _____|~~\_____      _____________ 
+  z _-~               \    |    \
+    _-    | )     \    |__/   \   \
+    _-         )   |   |  |     \  \
+    _-    | )     /    |--|      |  |
+   __-_______________ /__/_______|  |_________
+  (                |----         |  |
+   `---------------'--\\\\      .`--'
+                                `||||
+  </pre>
+</div>
+<div *ngIf="_crosswordService.searchService.popUp._isWaitingPlayer" id="waitingPopUp">
+  <h1>You are currently waiting for a rematch... </h1>
+  <br/>
+  <pre>
+          z
+    ___    z
+  _/   |  z
+ |_____| ()
+   --- ==\/\ |
+ [_____]  __)|
+  |   |  //| |
+  </pre>
+</div>

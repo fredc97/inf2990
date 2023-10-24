@@ -1,0 +1,95 @@
+.container {
+    border-radius: 1px;
+    border-style: solid;
+    border-color: rgb(25, 42, 66);
+}
+
+#currentDef {
+    margin: auto;
+    padding: 5px;
+}
+
+.selection {
+    margin: auto;
+    background-color: rgb(211, 228, 247);
+    padding: 10px;
+}
+
+#settings {
+    background-color: rgb(25, 42, 66);
+    color: white;
+    padding: 5px;
+}
+
+#game {
+    background-color: rgb(227, 234, 241);
+}
+
+#errorUser {
+    font-Weight: Bold;
+    color: red;
+    padding-left: 30px;
+}
+
+#errorRoom {
+    font-Weight: Bold;
+    color: red;
+}
+
+#generatingPopUp {
+    padding: 10px;
+    border-color: rgb(195, 230, 203);
+    border-radius: 10px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    color: black;
+    background-color: rgb(208, 231, 255);
+    z-index: 100;
+    height: 350px;
+    margin-top: -200px;
+    width: 600px;
+    margin-left: -300px;
+}
+
+#generatingPopUp pre {
+    color: black;
+    font-Weight: Bold;
+    text-align: justify;
+    position: relative;
+    padding-left: 130px;
+}
+
+#waitingPopUp {
+    padding: 10px;
+    border-color: rgb(195, 230, 203);
+    border-radius: 10px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    color: white;
+    background-color: rgb(240, 172, 81);
+    z-index: 100;
+    height: 350px;
+    margin-top: -200px;
+    width: 600px;
+    margin-left: -300px;
+}
+
+#waitingPopUp pre {
+    color: white;
+    font-Weight: Bold;
+    text-align: justify;
+    position: relative;
+    padding-left: 230px;
+}
+
+h2 {
+    padding: 20;
+    position: center;
+    margin: 1px;
+    padding: 3px;
+    height: 26px;
+}

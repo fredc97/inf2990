@@ -1,0 +1,141 @@
+<div class="jumbotron">
+  <h1>Crossword game</h1>
+  <p>A puzzle in which words corresponding to numbered clues or definitions are supplied and fitted into correspondingly numbered
+    <br/> sets of squares, one letter per square, the words being arranged horizontally or vertically so that most letters form
+    part of two words.</p>
+  <h5 *ngIf="!_selectedUser" [style.color]="!_selectedUser ? 'red' : 'black'">
+    <strong>1 - Enter a user name to start playing by yourself or against an opponent !</strong>
+  </h5>
+  <h5 *ngIf="!_selectedNumber" [style.color]="!_selectedNumber ? 'red' : 'black'">
+    <strong>2 - Choose the mode of this game !</strong>
+  </h5>
+  <h5 *ngIf="!_selectedDifficulty" [style.color]="!_selectedDifficulty ? 'red' : 'black'">
+    <strong>3 - Choose the difficulty !</strong>
+  </h5>
+  <h2>
+    <strong>Have fun {{_selectedUser}}!</strong>
+  </h2>
+</div>
+<div *ngIf="!_selectedUser" class="input-group col-sm-7">
+  <div class="input-group">
+    <label for="example-text-input" class="col-2 col-form-label">Username</label>
+    <input type="text" #user class="form-control" placeholder="Recipient's username" aria-label="Recipient's username">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" (click)="selectUser(user.value)"> Confirm </button>
+    </div>
+  </div>
+  <div *ngIf="_message._error._isUserExist" id="errorUser" class="input-group col-sm-3">
+    Username unavaible.
+  </div>
+</div>
+
+<div *ngIf="_selectedUser && !_selectedNumber" class="selection col-sm-6">
+  <button type="button" class="btn btn-dark btn-lg" (click)="onSelectedNumber('One Player')">One Player</button>
+  <button type="button" class="btn btn-secondary btn-lg" (click)="onSelectedNumber('Two Players')">Two Player</button>
+</div>
+
+<div *ngIf="!_selectedDifficulty && _selectedNumber" class="selection col-sm-6">
+  <button type="button" class="btn btn-light btn-lg" (click)="onSelectedDifficulty('Easy')">Easy</button>
+  <button type="button" class="btn btn-secondary btn-lg" (click)="onSelectedDifficulty('Normal')">Normal</button>
+  <button type="button" class="btn btn-dark btn-lg" (click)="onSelectedDifficulty('Hard')">Hard</button>
+</div>
+
+<div *ngIf="!_message._popUp._isWaitingPlayer">
+  <div *ngIf="_selectedNumber === 'Two Players' && _selectedDifficulty && !_selectedRoom && !_message._popUp._isCreatingGrid">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Room</th>
+          <th>Difficulty</th>
+          <th>Master</th>
+          <th>Mode</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let room of _listRooms">
+          <td>{{room.name}}</td>
+          <td>{{room.difficulty}}</td>
+          <td>{{room.players[0]}}</td>
+          <td>VS</td>
+          <td>
+            <button *ngIf="room.players.length === 1" type="button" class="btn btn-primary" (click)="selectRoom(room)"> Join</button>
+            <button *ngIf="room.players.length === 2" [disabled]="room.players.length === 2" type="button" class="btn btn-danger">Full</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br/>
+    <div class="input-group col-sm-7">
+      <div class="input-group">
+        <label for="example-text-input" class="col-2 col-form-label">Room</label>
+        <input type="text" #roomName class="form-control" placeholder="Enter a room name" aria-label="Enter a room name">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="createRoom(roomName.value)"> Create </button>
+        </div>
+        <br/>
+      </div>
+      <div *ngIf="_message._error._isRoomFull" id="errorRoom" class="input-group col-sm-3">
+        Sorry, this room is full.
+      </div>
+      <div *ngIf="_message._error._isRoomExist" id="errorRoom" class="input-group col-sm-3">
+        This room already exist.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container" *ngIf="(_selectedDifficulty && _selectedRoom && _selectedNumber === 'Two Players')
+|| (_selectedNumber === 'One Player' && _selectedDifficulty && _crossword.grid)" id="game">
+  <div class="row" id="settings">
+    <div class="col-4">
+      <h3 *ngIf="_selectedRoom"> Room : {{_selectedRoom.name}}</h3>
+      <h3 *ngIf="_selectedRoom"> Size : {{_selectedRoom.players.length}} </h3>
+    </div>
+    <div class="col-4">
+      <h3 *ngIf="_selectedRoom">{{_userNames[0]}} VS {{_userNames[1]}}</h3>
+    </div>
+    <div class="col-4">
+      <h3 *ngIf="_selectedNumber === 'One Player'">Difficulty: {{_selectedDifficulty}}</h3>
+      <h3 *ngIf="_selectedRoom">Difficulty: {{_selectedRoom.difficulty}}</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div *ngIf="_selectedRoom">
+        <app-grid *ngIf="_selectedRoom.players.length === 2 && _crossword.grid" [players]="_selectedRoom.players" [currentPlayer]="_selectedUser"></app-grid>
+      </div>
+      <app-grid *ngIf="_selectedNumber === 'One Player' && _crossword.grid" [currentPlayer]="_selectedUser"></app-grid>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="_message._popUp._isWaitingPlayer && (_crossword.grid === undefined)" id="waitingPopUp">
+  <h1>Waiting for another player before the game starts</h1>
+  <br/>
+  <pre>
+          z
+    ___    z
+  _/   |  z
+ |_____| ()
+   --- ==\/\ |
+ [_____]  __)|
+  |   |  //| |
+  </pre>
+</div>
+<div *ngIf="(_crossword.grid === undefined) && _message._popUp._isCreatingGrid" id="generatingPopUp">
+  <h1>Currently generating a new grid</h1>
+  <br/>
+  <pre>
+    z   _____|~~\_____      _____________ 
+      z _-~               \    |    \
+        _-    | )     \    |__/   \   \
+        _-         )   |   |  |     \  \
+        _-    | )     /    |--|      |  |
+       __-_______________ /__/_______|  |_________
+      (                |----         |  |
+       `---------------'--\\\\      .`--'
+                                    `||||
+      </pre>
+</div>

@@ -1,0 +1,21 @@
+<div class="alert {{alert.type}}" role="alert">
+  {{alert.content}}
+</div>
+<hr>
+<div id="form">
+  <h2> Track Creator </h2>
+  <form>
+    <label for="name">Name: </label>
+    <input type="text" name="name" [value]="track.name" placeholder="The name of the track">
+    {{track.name}}
+    <br>
+    <label for="description">Description: </label>
+    <textarea id="description" name="description" [(ngModel)]="track.description" placeholder="The description of the track"></textarea>
+    <br>
+    <input type="submit" value="Submit" (click)="add()" [disabled]="!isComplete()">
+    <br>
+    <br>
+  </form>
+  <div #racingContainer oncontextmenu="return false;" id="container">
+  </div>
+</div>
